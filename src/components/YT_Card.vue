@@ -5,7 +5,13 @@
       <div class="column">
         <div class="ui fluid card" id="card">
           <div class="image">
-            <img :src="IMG_URL" alt="img" id="img" class="img-animated" />
+            <youtube
+              id="video"
+              :video-id="VIDEO_ID"
+              :player-width="700"
+              :player-vars="{ autoplay: 1 }"
+              :mute="true"
+            ></youtube>
           </div>
           <div class="content">
             <div class="header">
@@ -14,16 +20,11 @@
             <div class="meta" style="padding-top: 5px; font-size: 1.3em">{{ category }}</div>
 
             <div class="ui two column centered grid">
-              <div class="ui statistics" style="padding: 40px">
+              <div class="ui statistics" id="statistics">
                 <div class="statistic">
                   <div class="value">
                     <i class="eye icon icon-animated"></i>
-                    <ICountUp
-                      :delay="delay"
-                      :endVal="viewCount"
-                      :options="options"
-                      @ready="counterViewStart"
-                    />
+                    <ICountUp :delay="delay" :endVal="viewCount" :options="options" @ready="counterViewStart" />
                   </div>
                   <div class="label">Visualizaciones</div>
                 </div>
@@ -31,12 +32,7 @@
                 <div class="statistic">
                   <div class="value">
                     <i class="like icon icon-animated"></i>
-                    <ICountUp
-                      :delay="delay"
-                      :endVal="likeCount"
-                      :options="options"
-                      @ready="counterLikeStart"
-                    />
+                    <ICountUp :delay="delay" :endVal="likeCount" :options="options" @ready="counterLikeStart" />
                   </div>
                   <div class="label">Me Gusta</div>
                 </div>
@@ -44,24 +40,14 @@
                 <div class="statistic">
                   <div class="value">
                     <i class="comment icon icon-animated"></i>
-                    <ICountUp
-                      :delay="delay"
-                      :endVal="commentCount"
-                      :options="options"
-                      @ready="counterCommentStart"
-                    />
+                    <ICountUp :delay="delay" :endVal="commentCount" :options="options" @ready="counterCommentStart" />
                   </div>
                   <div class="label">Comentarios</div>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            class="ui bottom attached progress"
-            data-value="100"
-            data-total="1000"
-            id="progress-bar"
-          >
+          <div class="ui bottom attached progress" data-value="100" data-total="1000" id="progress-bar">
             <div class="bar"></div>
           </div>
           <div class="ui inverted segment">
@@ -86,11 +72,12 @@ import * as moment from "moment";
 export default {
   name: "YOUTUBE_VIDEO_COUNTER",
   components: {
-    ICountUp
+    ICountUp,
   },
   data: function() {
     return {
       IMG_URL: "/images/bg.png",
+      VIDEO_ID: process.env.VUE_APP_VIDEO_ID,
       title: "",
       category: "",
       viewCount: 0,
@@ -106,8 +93,8 @@ export default {
         decimal: ".",
         prefix: "",
         suffix: "",
-        duration: 10
-      }
+        duration: 15,
+      },
     };
   },
   methods: {
@@ -138,9 +125,7 @@ export default {
       this.title = data["items"][0]["snippet"]["title"];
       this.viewCount = Number(data["items"][0]["statistics"]["viewCount"]);
       this.likeCount = Number(data["items"][0]["statistics"]["likeCount"]);
-      this.commentCount = Number(
-        data["items"][0]["statistics"]["commentCount"]
-      );
+      this.commentCount = Number(data["items"][0]["statistics"]["commentCount"]);
 
       moment.locale("es");
       this.date = data["items"][0]["snippet"]["publishedAt"];
@@ -160,7 +145,7 @@ export default {
 
       $("#progress-bar").progress({
         duration: 1000,
-        total: 1000
+        total: 1000,
       });
 
       // ANIMATIONS
@@ -185,17 +170,24 @@ export default {
 
     counterCommentStart: function(instance, CountUp) {
       instance.update(this.commentCount);
-    }
+    },
   },
   mounted() {
     this.fetchVideoData();
-  }
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-#img {
+#statistics {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#video {
   object-fit: cover;
   height: 360px;
 }
