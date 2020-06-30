@@ -1,9 +1,11 @@
 <template>
 	<div id="app">
-		<!-- Following Menu -->
+		<!-- MENU -->
 		<div class="ui inverted massive menu">
 			<div class="ui container">
-				<img height="80" src="/images/logo-navbar.png" />
+				<a href="https://www.crisaty.com" target="_blank">
+					<img height="80px" src="/images/logo-navbar.png"/>
+				</a>
 				<div class="right menu">
 					<div class="item">
 						<div class="ui inverted left icon input">
@@ -14,7 +16,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Page Contents -->
+		<!-- CONTENT -->
 		<div class="pusher" style="padding-top: 40px">
 			<youtubeCard :VIDEO_ID="VIDEO_ID"></youtubeCard>
 		</div>
