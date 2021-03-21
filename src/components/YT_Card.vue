@@ -7,7 +7,7 @@
 					<div class="image">
 						<youtube
 							id="video"
-							:video-id="VIDEO_ID"
+							:video-id="videoId"
 							:player-width="700"
 							:player-vars="{ autoplay: 1, controls: 0 }"
 							:mute="true"
@@ -19,7 +19,7 @@
 						</div>
 						<div class="meta" style="padding-top: 5px; font-size: 1.3em">{{ category }}</div>
 
-						<div class="ui two column centered grid">
+						<div class="ui two column centered grid" v-if="loaded">
 							<div class="ui statistics" id="statistics">
 								<div class="statistic">
 									<div class="value">
@@ -73,7 +73,7 @@ export default {
 	name: "YOUTUBE_VIDEO_COUNTER",
 
 	props: {
-		VIDEO_ID: {
+		videoId: {
 			type: String
 		}
 	},
@@ -101,63 +101,74 @@ export default {
 				prefix: "",
 				suffix: "",
 				duration: 15
-			}
+			},
+			loaded: false
 		};
 	},
 	methods: {
+		clearState() {
+			this.title = null;
+			this.category = null;
+			this.viewCount = 0;
+			this.likeCount = 0;
+			this.commentCount = 0;
+			this.date = null;
+		},
+
 		async fetchVideoData() {
 			const API_KEY = process.env.VUE_APP_API_KEY;
-			const url = `https://www.googleapis.com/youtube/v3/videos?id=${this.VIDEO_ID}&key=${API_KEY}&part=snippet,statistics`;
-			const response = await fetch(url);
-			const data = await response.json();
-			var CATEGORY_ID = data["items"][0]["snippet"]["categoryId"];
-			const url_category = `https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&hl=es_ES&id=${CATEGORY_ID}&key=${API_KEY}`;
-			const response_cat = await fetch(url_category);
-			const data_cat = await response_cat.json();
+			const url = `https://www.googleapis.com/youtube/v3/videos?id=${this.videoId}&key=${API_KEY}&part=snippet,statistics`;
 
 			try {
+				const response = await fetch(url);
+				const data = await response.json();
+				var CATEGORY_ID = data["items"][0]["snippet"]["categoryId"];
+				const url_category = `https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&hl=es_ES&id=${CATEGORY_ID}&key=${API_KEY}`;
+				const response_cat = await fetch(url_category);
+				const data_cat = await response_cat.json();
+
+				this.loaded = true;
 				this.category = data_cat["items"][0]["snippet"]["title"];
 				this.IMG_URL = data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
 				this.title = data["items"][0]["snippet"]["title"];
 				this.viewCount = Number(data["items"][0]["statistics"]["viewCount"]);
 				this.likeCount = Number(data["items"][0]["statistics"]["likeCount"]);
 				this.commentCount = Number(data["items"][0]["statistics"]["commentCount"]);
-
 				moment.locale("es");
 				this.date = data["items"][0]["snippet"]["publishedAt"];
 				this.date = moment(this.date).format("LLLL");
-			} catch (error) {}
 
-			// console.log(data["items"][0]["snippet"]);
-			// console.log(data["items"][0]["statistics"]);
+				// PROGRESS BAR
+				window.fakeProgress = setInterval(function() {
+					$("#progress-bar").progress("increment");
+					// stop incrementing when complete
+					if ($("#progress-bar").progress("is complete")) {
+						clearInterval(window.fakeProgress);
+						$(".img-animated")
+							.transition("remove looping")
+							.transition("browse in", "1000ms");
+					}
+				}, 10);
 
-			// PROGRESS BAR
-			window.fakeProgress = setInterval(function() {
-				$("#progress-bar").progress("increment");
-				// stop incrementing when complete
-				if ($("#progress-bar").progress("is complete")) {
-					clearInterval(window.fakeProgress);
-					$(".img-animated")
-						.transition("remove looping")
-						.transition("browse in", "1000ms");
-				}
-			}, 10);
+				$("#progress-bar").progress({
+					duration: 1000,
+					total: 1000
+				});
 
-			$("#progress-bar").progress({
-				duration: 1000,
-				total: 1000
-			});
+				// ANIMATIONS
+				$("#card").transition("browse in", "1000ms");
 
-			// ANIMATIONS
-			$("#card").transition("browse in", "1000ms");
+				$(".icon-animated")
+					.transition("set looping")
+					.transition("pulse", "2000ms");
 
-			$(".icon-animated")
-				.transition("set looping")
-				.transition("pulse", "2000ms");
-
-			$(".img-animated")
-				.transition("set looping")
-				.transition("pulse", "2000ms");
+				$(".img-animated")
+					.transition("set looping")
+					.transition("pulse", "2000ms");
+			} catch (error) {
+				this.loaded = false;
+				this.clearState();
+			}
 		},
 
 		counterViewStart: function(instance, CountUp) {
@@ -174,7 +185,7 @@ export default {
 	},
 
 	watch: {
-		VIDEO_ID() {
+		videoId() {
 			this.fetchVideoData();
 		}
 	}

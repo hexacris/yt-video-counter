@@ -1,46 +1,46 @@
 {
-  "name": "yt_video_counter",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.6.4",
-    "countup.js": "^2.0.4",
-    "dotenv": "^8.2.0",
-    "moment": "^2.24.0",
-    "vue": "^2.6.11",
-    "vue-countup-v2": "^4.0.0",
-    "vue-youtube-embed": "^2.2.2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-service": "^4.2.0",
-    "babel-eslint": "^10.0.3",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.41.5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+	"name": "yt_video_counter",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint"
+	},
+	"dependencies": {
+		"core-js": "^3.6.4",
+		"countup.js": "^2.0.4",
+		"dotenv": "^8.2.0",
+		"moment": "^2.24.0",
+		"vue": "^2.6.11",
+		"vue-countup-v2": "^4.0.0",
+		"vue-youtube-embed": "^2.2.2"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "^4.2.0",
+		"@vue/cli-service": "^4.2.0",
+		"babel-eslint": "^10.0.3",
+		"node-sass": "^4.13.1",
+		"sass-loader": "^8.0.2",
+		"vue-template-compiler": "^2.6.11",
+		"webpack": "^4.41.5"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/essential",
+			"eslint:recommended"
+		],
+		"parserOptions": {
+			"parser": "babel-eslint"
+		},
+		"rules": {}
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions"
+	]
 }

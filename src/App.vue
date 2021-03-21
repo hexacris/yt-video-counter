@@ -2,15 +2,17 @@
 	<div id="app">
 		<!-- MENU -->
 		<div class="ui inverted massive menu">
-			<div class="ui container">
+			<div class="ui container" style="padding-top: 30px">
 				<a href="https://www.crisaty.com" target="_blank">
-					<img height="80px" src="/images/logo-navbar.png"/>
+					<img height="50px" src="/images/logo.png" />
 				</a>
 				<div class="right menu">
 					<div class="item">
-						<div class="ui inverted left icon input">
+						<div class="ui action input">
 							<input v-model="VIDEO_ID" type="text" placeholder="Ingresa ID del Video" />
-							<i class="search icon"></i>
+							<button class="ui icon button" @click="loadVideo">
+								<i class="search icon"></i>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -18,7 +20,7 @@
 		</div>
 		<!-- CONTENT -->
 		<div class="pusher" style="padding-top: 40px">
-			<youtubeCard :VIDEO_ID="VIDEO_ID"></youtubeCard>
+			<youtubeCard :videoId="videoId"></youtubeCard>
 		</div>
 	</div>
 </template>
@@ -33,8 +35,14 @@ export default {
 	},
 	data() {
 		return {
-			VIDEO_ID: null
+			VIDEO_ID: null,
+			videoId: null
 		};
+	},
+	methods: {
+		loadVideo() {
+			this.videoId = this.VIDEO_ID;
+		}
 	}
 };
 </script>
