@@ -4,7 +4,7 @@
 		<div class="ui inverted massive menu">
 			<div class="ui container" style="padding-top: 30px">
 				<a href="https://www.crisaty.com" target="_blank">
-					<img height="50px" src="/images/logo.png" />
+					<img height="50px" src="/images/new-logo.png" />
 				</a>
 				<div class="right menu">
 					<div class="item">
@@ -49,6 +49,6 @@ export default {
 
 <style>
 body {
-	background-color: #1b1c1e;
+	background-color: #252525;
 }
 </style>

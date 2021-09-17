@@ -3,7 +3,7 @@
 	<div class="card_component">
 		<div class="ui two column centered grid">
 			<div class="column">
-				<div class="ui fluid card" id="card">
+				<div class="ui fluid raised card" id="card">
 					<div class="image">
 						<youtube
 							id="video"
@@ -47,15 +47,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="ui bottom attached progress" data-value="100" data-total="1000" id="progress-bar">
+					<div class="ui bottom attached red progress" data-value="100" data-total="1000" id="progress-bar">
 						<div class="bar"></div>
 					</div>
 					<div class="ui inverted segment">
 						<div class="extra content" style="text-transform: capitalize; font-size: 1.3em">
 							<span class="right floated">{{ date }}</span>
 							<span>
-								<i class="user icon"></i>
-								CRISATY
+								<img height="25px" src="/images/new-logo.png" />
 							</span>
 						</div>
 					</div>
@@ -194,6 +193,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+* {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.label {
+	color: rgba(255, 255, 255, 0.7) !important;
+}
 #statistics {
 	padding-top: 40px;
 	padding-bottom: 40px;
@@ -220,7 +226,7 @@ export default {
 .ui.card .meta,
 .ui.cards > .card .meta {
 	font-size: 1em;
-	color: rgba(0, 0, 0, 0.5);
+	color: rgba(255, 255, 255, 0.5);
 	font-weight: 600;
 }
 
@@ -238,5 +244,10 @@ export default {
 
 .ui.statistics > .statistic {
 	margin: 0.5em !important;
+}
+
+.ui.card,
+.ui.cards > .card {
+	box-shadow: none !important;
 }
 </style>
