@@ -11,7 +11,7 @@
 		"core-js": "^3.6.4",
 		"countup.js": "^2.0.4",
 		"dotenv": "^8.2.0",
-		"moment": "^2.24.0",
+		"moment": "^2.29.4",
 		"vue": "^2.6.11",
 		"vue-countup-v2": "^4.0.0",
 		"vue-youtube-embed": "^2.2.2"
